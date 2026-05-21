@@ -139,11 +139,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
--- bind gd to the LSP server so that it goes to function definition and not to the import in buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args) vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = args.buf }) end,
-})
-
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -389,6 +384,9 @@ require('lazy').setup({
           -- Useful when you're not sure what type a variable is and you want to see
           -- the definition of its *type*, not where it was *defined*.
           vim.keymap.set('n', 'grt', builtin.lsp_type_definitions, { buffer = buf, desc = '[G]oto [T]ype Definition' })
+
+          -- Go to Definition and not just to the import in-buffer
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = buf })
         end,
       })
 
