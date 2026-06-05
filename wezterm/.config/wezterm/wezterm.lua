@@ -8,7 +8,25 @@ config.line_height = 1.1
 
 config.cell_width = 1.0
 
-config.color_scheme = "Catppuccin Mocha"
+local function get_appearance()
+	local gui = wezterm.gui
+	if gui then
+		return gui.get_appearance()
+	end
+	-- Fallback if GUI is not available (e.g., headless mode)
+	return "Dark"
+end
+
+local function set_color_scheme()
+	local appearance = get_appearance()
+	if appearance:find("Dark") then
+		return "Catppuccin Mocha"
+	else
+		return "Catppuccin Latte"
+	end
+end
+
+config.color_scheme = set_color_scheme()
 
 config.window_background_opacity = 1.0
 config.window_decorations = "TITLE | RESIZE"
