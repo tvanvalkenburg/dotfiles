@@ -2,9 +2,9 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 config.font = wezterm.font("JetBrains Mono", { weight = "Medium" })
-config.font_size = 14.0
+config.font_size = 13.0
 
-config.line_height = 1.1
+config.line_height = 1.0
 
 config.cell_width = 1.0
 
@@ -30,7 +30,7 @@ config.color_scheme = set_color_scheme()
 
 config.window_background_opacity = 1.0
 config.window_decorations = "TITLE | RESIZE"
-config.use_fancy_tab_bar = true
+config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.hide_tab_bar_if_only_one_tab = true
 config.show_new_tab_button_in_tab_bar = false
@@ -46,7 +46,7 @@ config.front_end = "WebGpu"
 config.max_fps = 120
 
 config.default_cursor_style = "SteadyBar"
-config.cursor_thickness = "2px"
+config.cursor_thickness = "4px"
 
 config.audible_bell = "Disabled"
 config.window_close_confirmation = "NeverPrompt"
