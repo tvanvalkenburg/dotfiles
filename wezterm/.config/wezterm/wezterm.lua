@@ -31,6 +31,7 @@ config.color_scheme = set_color_scheme()
 config.window_background_opacity = 1.0
 config.window_decorations = "TITLE | RESIZE"
 config.use_fancy_tab_bar = true
+config.tab_bar_at_bottom = true
 config.hide_tab_bar_if_only_one_tab = true
 config.show_new_tab_button_in_tab_bar = false
 
