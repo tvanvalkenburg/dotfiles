@@ -92,6 +92,9 @@ config.keys = {
 
 	-- Quick launcher (WezTerm feature!)
 	{ key = "p", mods = "CMD|SHIFT", action = act.ActivateCommandPalette },
+
+	-- macOS-style line deletion (CMD+Backspace deletes to beginning of line)
+	{ key = "Backspace", mods = "CMD", action = act.SendKey({ key = "u", mods = "CTRL" }) },
 }
 
 local is_windows = wezterm.target_triple:find("windows") ~= nil
