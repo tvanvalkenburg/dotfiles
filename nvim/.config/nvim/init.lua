@@ -77,6 +77,37 @@ vim.o.scrolloff = 10
 vim.opt.title = true
 vim.opt.titlestring = '%{fnamemodify(getcwd(), ":t")}'
 
+-- [[ Tabline ]]
+-- Label = t:tabname if set, else the filename of the tab's current buffer.
+-- The tabline is only shown when there are 2+ tabs (showtabline=1).
+vim.o.showtabline = 1
+
+function _G.custom_tabline()
+  local s = ''
+  local current = vim.fn.tabpagenr()
+  for i = 1, vim.fn.tabpagenr '$' do
+    local label = vim.fn.gettabvar(i, 'tabname', '')
+    if label == '' then
+      local buf = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)]
+      label = vim.fn.fnamemodify(vim.fn.bufname(buf), ':t')
+      if label == '' then label = '[No Name]' end
+    end
+    label = label:gsub('%%', '%%%%') -- escape % for the tabline format
+    s = s .. (i == current and '%#TabLineSel#' or '%#TabLine#') .. '%' .. i .. 'T ' .. i .. ' ' .. label .. ' '
+  end
+  return s .. '%#TabLineFill#%T'
+end
+vim.o.tabline = '%!v:lua.custom_tabline()'
+
+-- init.lua runs in the first tab, so this labels the initial tab.
+vim.t.tabname = 'main'
+
+-- :TabNew [name] opens an empty tab labeled <name>, without creating a file buffer by that name.
+vim.api.nvim_create_user_command('TabNew', function(opts)
+  vim.cmd.tabnew()
+  if opts.args ~= '' then vim.t.tabname = opts.args end
+end, { nargs = '?', desc = 'New tab with a label' })
+
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
